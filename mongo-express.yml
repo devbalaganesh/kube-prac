@@ -1,0 +1,36 @@
+apiVersion : apps/v1
+Kind: Deployment
+metadata:
+    name: mongoexpress
+    lables: mongo-express
+spec: 
+    replicas: 1
+    selector:
+        matchLables:
+        app: mongo-expres
+        template:
+            metadata:
+            labels:
+                app: mongo-expres
+            spec:
+                containers:
+                - name: mongo-expres
+                image: mongo-expres
+                ports:
+                - containerPort:8080
+                env:
+                    - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+                      valueFrom: 
+                        secretKeyRef:
+                            name: mongodb-secret
+                            key: MONGO_INITDB_ROOT_USERNAME
+                    - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+                      valueFrom:
+                        secretKeyRef:
+                            name: mongodb-secret
+                            key: MONGO_INITDB_ROOT_ MONGO_INITDB_ROOT_PASSWORD
+
+
+
+
+
